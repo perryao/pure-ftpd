@@ -1346,6 +1346,33 @@ AC_ARG_WITH(pgsql,
     AC_MSG_RESULT(yes)
   fi ])
 
+AC_ARG_WITH(mongo,
+[AS_HELP_STRING(--with-mongo, Users database is a MongoDB database (see doc))],
+[ if test "x$withval" != "xno" ; then
+    LD_RUN_PATH="/usr/include/libmongoc-1.0:/usr/include/libbson-1.0"
+    CPPFLAGS="`pkg-config --cflags --libs libmongoc-1.0`"
+    LDFLAGS="$LDFLAGS"
+    with_mongo="yes"
+    AC_DEFINE(WITH_MONGO,,[with mongo])
+    AC_CHECK_LIB(mongoc-1.0, mongoc_init, ,
+      [AC_MSG_ERROR(libmongoc is needed for MongoDB support)])        
+    AC_CHECK_LIB(bson-1.0, bson_new, , [AC_MSG_ERROR([Not found libbson library])])
+    AC_MSG_CHECKING(whether mongodb clients can run)
+    AC_RUN_IFELSE([AC_LANG_SOURCE([[
+      #include <stdio.h>
+      #include <mongoc.h>
+      int main(void)
+      {
+          mongoc_init();
+          return 0;
+      }
+      ]])],[],[
+        AC_MSG_RESULT(no)
+        AC_MSG_ERROR(Your MongoDB client libraries aren't properly installed)      
+    ],[])    
+    AC_MSG_RESULT(yes)
+  fi ])
+
 AC_ARG_WITH(tls,
 [AS_HELP_STRING(--with-tls,Enable TLS support)],
 [ if test "x$withval" = "xyes" ; then
