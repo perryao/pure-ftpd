@@ -7,7 +7,7 @@
 
 #include <config.h>
 
-#if defined(WITH_LDAP) || defined(WITH_MYSQL) || defined(WITH_PGSQL)
+#if defined(WITH_LDAP) || defined(WITH_MYSQL) || defined(WITH_PGSQL) || defined(WITH_MONGODB)
 # include "ftpd.h"
 # include "parser_p.h"
 # include "parser.h"
