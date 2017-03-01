@@ -15,6 +15,9 @@
 #ifdef WITH_PGSQL
 # include "log_pgsql.h"
 #endif
+#ifdef WITH_MONGODB
+# include "log_mongodb.h"
+#endif
 #ifdef WITH_PUREDB
 # include "log_puredb.h"
 #endif
@@ -266,14 +269,17 @@ static Authentication auth_list[] = {
 #ifdef WITH_PGSQL
     { "pgsql", pw_pgsql_parse, pw_pgsql_check, pw_pgsql_exit },   /* 3 */
 #endif
+#ifdef WITH_MONGODB
+    { "mongodb", pw_mongo_parse, pw_mongo_check, pw_mongo_exit }, /* 3 */
+#endif
 #ifdef WITH_LDAP
-    { "ldap", pw_ldap_parse, pw_ldap_check, pw_ldap_exit },   /* 4 */
+    { "ldap", pw_ldap_parse, pw_ldap_check, pw_ldap_exit },   /* 5 */
 #endif
 #ifdef WITH_PUREDB
-    { "puredb", pw_puredb_parse, pw_puredb_check, pw_puredb_exit },   /* 5 */
+    { "puredb", pw_puredb_parse, pw_puredb_check, pw_puredb_exit },   /* 6 */
 #endif
 #ifdef WITH_EXTAUTH
-    { "extauth", pw_extauth_parse, pw_extauth_check, pw_extauth_exit },   /* 6 */
+    { "extauth", pw_extauth_parse, pw_extauth_check, pw_extauth_exit },   /* 7 */
 #endif
     { NULL, NULL, NULL, NULL }
 };

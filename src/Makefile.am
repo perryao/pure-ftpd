@@ -75,6 +75,9 @@ libpureftpd_a_SOURCES = \
 	log_pgsql.c \
 	log_pgsql.h \
 	log_pgsql_p.h \
+	log_mongodb.c \
+	log_mongodb.h \
+	log_mongodb_p.h \
 	log_pam.c \
 	log_pam.h \
 	log_ldap.c \
